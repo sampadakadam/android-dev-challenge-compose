@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androiddevchallenge.model.Item
 import com.example.androiddevchallenge.repository.HackernewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -15,8 +16,8 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(val repository: HackernewsRepository) :
     ViewModel() {
 
-    private val _uiState = MutableLiveData<List<Long>>()
-    val uiState: LiveData<List<Long>> = _uiState
+    private val _uiState = MutableLiveData<List<Item>>()
+    val uiState: LiveData<List<Item>> = _uiState
 
 
     fun start() {
