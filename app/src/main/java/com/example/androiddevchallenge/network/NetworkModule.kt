@@ -10,6 +10,9 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.CallAdapter
 import javax.inject.Singleton
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -17,10 +20,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder()
+    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi) = Retrofit.Builder()
         .baseUrl("https://hacker-news.firebaseio.com")
         .client(okHttpClient)
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 
 
@@ -33,8 +36,14 @@ class NetworkModule {
     }
 
     @Provides
+    @Singleton
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+    }
+
+
+    @Provides
     fun provideHackernewsService(retrofit: Retrofit) =
         retrofit.create(HackerNewsService::class.java)
-
 
 }

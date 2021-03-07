@@ -19,10 +19,16 @@ class MainActivityViewModel @Inject constructor(val repository: HackernewsReposi
     private val _uiState = MutableLiveData<List<Item>>()
     val uiState: LiveData<List<Item>> = _uiState
 
+    //var item = MutableLiveData<Item>()
 
     fun start() {
-        Log.i("tag", "hello")
+
         viewModelScope.launch {
+//            repository.story(26337046).collect {
+//                item.value = it
+//            }
+
+
             repository.bestStories().collect { bests ->
                 _uiState.value = bests
             }

@@ -1,9 +1,7 @@
 package com.example.androiddevchallenge.model
 
 import android.net.Uri
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
 data class Item(
     val id: Long = -1L,
     val text: String = "",
@@ -14,7 +12,7 @@ data class Item(
     val time: Long = -1L,
     val title: String = "",
     val type: String = "",
-    val url: String = ""
+    val url: String = "",
 ) {
 
     val uri: Uri? = Uri.parse(url)
